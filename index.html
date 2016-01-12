@@ -1,0 +1,510 @@
+<html>
+<head>
+	<title>Jcrop Demo</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="jquery.Jcrop.min.css">
+	<script src="jquery.min.js"></script> 
+	<script src="jquery.Jcrop.min.js"></script> 
+	<script src="jquery.color.js"></script>
+	<style type="text/css">
+	div.img-container {
+		text-align: center;
+		width: 100%;
+	}
+	div.img-container img#example-img {
+		display: inline-block;
+		float: left;
+		width: 640px;
+		height: auto;
+	}
+	.api-container {
+		width: 100%;
+	}
+	.api-container .left,
+	.api-container .right {
+		float: left;
+		width: 50%;
+	}
+	.api {
+		margin: 20px;
+		border-top: 1px solid #ddd;
+	}
+	.input-coords {
+		margin-right: 10px;
+	}
+	.preview-container {
+		display: inline-block;
+		width: 200px;
+		height: 200px;
+		overflow: hidden;
+	}
+	.preview-container img {
+		display: inline-block;
+		float: left;
+		width: 200px;
+		height: 200px;
+	}
+	.input-option-toggle + span {
+		margin-right: 10px;
+	}
+	.jcrop-holder {
+		display: inline-block;
+	}
+	.clear {
+		clear: both;
+	}
+	</style>
+</head>
+<body>
+	<div class="img-container">
+		<img id="example-img" src="1.jpg">
+		<div class="preview-container" id="preview-container">
+			<img src="" class="jcrop-preview" alt="Preview" id="preview-img" />
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="api-container">
+		<div class="left">
+			<div class="api">
+				<h3>style</h3>
+				<button class="btn-style" name="1">jcrop-light</button>
+				<button class="btn-style" name="2">jcrop-dark</button>
+				<button class="btn-style" name="3">normal</button>
+			</div>
+			<div class="api">
+				<h3>Coords</h3>
+				<span>X1:</span><input class="input-coords" id="x1" size="4">
+				<span>Y1:</span><input class="input-coords" id="y1" size="4">
+				<span>X2:</span><input class="input-coords" id="x2" size="4">
+				<span>Y2:</span><input class="input-coords" id="y2" size="4">
+				<span>W:</span><input class="input-coords" id="w" size="4">
+				<span>H:</span><input class="input-coords" id="h" size="4">
+			</div>
+			<div class="api">
+				<h3>Animations</h3>
+				<button class="btn-animations" name="1">1</button>
+				<button class="btn-animations" name="2">2</button>
+				<button class="btn-animations" name="3">3</button>
+				<button class="btn-animations" name="4">4</button>
+				<button class="btn-animations" name="5">5</button>
+				<button class="btn-animations" name="bye">bye</button>
+			</div>
+			<div class="api">
+				<h3>Background Opacity</h3>
+				<button class="btn-opacity" name="Low">Low</button>
+				<button class="btn-opacity" name="Mid">Mid</button>
+				<button class="btn-opacity" name="High">High</button>
+				<button class="btn-opacity" name="Full">Full</button>
+			</div>
+			<div class="api">
+				<h3>Background Color</h3>
+				<button class="btn-bgColor" name="Red">Red</button>
+				<button class="btn-bgColor" name="Blue">Blue</button>
+				<button class="btn-bgColor" name="Yellow">Yellow</button>
+				<button class="btn-bgColor" name="Green">Green</button>
+				<button class="btn-bgColor" name="Yellow">White</button>
+				<button class="btn-bgColor" name="Black">Black</button>
+			</div>
+		</div>
+		<div class="right">
+			<div class="api">
+				<h3>Option Toggle</h3>
+				<input type="checkbox" class="input-option-toggle" name="bgFading" checked><span>background fading</span>
+				<input type="checkbox" class="input-option-toggle" name="resizable" checked><span>resizable selection</span>
+				<input type="checkbox" class="input-option-toggle" name="movable" checked><span>movable selection</span>
+				<input type="checkbox" class="input-option-toggle" name="newSelect" checked><span>allow new selection</span>
+			</div>
+			<div class="api">
+				<h3>Fixed Aspect Ratio</h3>
+				<input type="checkbox" class="checkbox-fixed-aspect-ratio"><span>enable</span>
+				<span>W:</span><input size="4" class="input-fixed-aspect-ratio" name="width" value="200" readonly>
+				<span>H:</span><input size="4" class="input-fixed-aspect-ratio" name="height" value="100" readonly>
+			</div>
+			<div class="api">
+				<h3>Fixed Min/Max Size</h3>
+				<input type="checkbox" class="checkbox-fixed-minmax-size"><span>enable</span>
+				<span>minWidth:</span><input size="4" class="input-fixed-minmax-size" name="minWidth" value="100" readonly>
+				<span>minHeight:</span><input size="4" class="input-fixed-minmax-size" name="minHeight" value="100" readonly>
+				<span>maxWidth:</span><input size="4" class="input-fixed-minmax-size" name="maxWidth" value="200" readonly>
+				<span>maxHeight:</span><input size="4" class="input-fixed-minmax-size" name="maxHeight" value="200" readonly>
+			</div>
+			<div class="api">
+				<h3>Change Image</h3>
+				<button class="btn-changeImage" name="1">1</button>
+				<button class="btn-changeImage" name="2">2</button>
+				<button class="btn-changeImage" name="3">3</button>
+			</div>
+			<div class="api">
+				<h3>Action</h3>
+				<button class="btn-action" name="setSelection">set selection</button>
+				<button class="btn-action" name="release">release</button>
+				<button class="btn-action" name="enable">enable</button>
+				<button class="btn-action" name="disable">disable</button>
+				<button class="btn-action" name="destroy">destroy</button>
+				<button class="btn-action" name="init">init</button>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	
+</body>
+</html>
+
+<script type="text/javascript">
+// jcrop 对象
+var jcrop;
+$(document).ready(function() {
+	// jcrop边界
+	var boundx, boundy;
+
+	// 原图比例
+	var ratio = $("#example-img").width()/$("#example-img").height();
+
+	// 缩略图宽高
+	var previewWidth = $("#preview-container").width();
+	var previewHeight = $("#preview-container").height();
+
+	initJcrop();
+
+	// 初始化jcrop
+	function initJcrop() {
+		$('#example-img').Jcrop({
+			allowSelect: true, // 允许选中
+			allowMove: true, // 允许拖动选框
+			allowResize: true, // 允许重置选框大小
+			trackDocument: true, // 拖动选框时，允许超出图像以外的地方时继续拖动
+			baseClass: 'jcrop', // 基础样式名前缀。说明：class="jcrop-holder"，更改的只是其中的 jcrop。例：假设值为 "test"，那么样式名会更改为 "test-holder"
+			addClass: 'jcrop-light', // 添加样式。例：假设值为 "test"，那么会添加样式到class="jcrop-holder test"
+			bgColor: 'black', // 背景颜色。颜色关键字、HEX、RGB 均可。
+			bgOpacity: 0.6, // 背景透明度
+			bgFade: true, // 背景渐变开关
+			borderOpacity: 0.4, // 	选框边框透明度
+			handleOpacity: 0.5, //缩放按钮透明度
+			handleSize: 7, // 缩放按钮大小
+			aspectRatio: 0, // 选框宽高比。说明：width/height
+			keySupport: true, // 支持键盘控制。按键列表：上下左右（移动选框）、Esc（取消选框）
+			createHandles: ['n', 's', 'e', 'w', 'nw', 'ne', 'se', 'sw'], // 设置边角控制器 ['n','s','e','w','nw','ne','se','sw']
+			createDragbars: ['n', 's', 'e', 'w'], // 设置边框控制器 ['n','s','e','w']
+			createBorders: 	['n', 's', 'e', 'w'], // 设置边框 ['n','s','e','w']
+			drawBorders: true, // 绘制边框开关
+			dragEdges: true, // 拖动边框开关
+			boxWidth: 640, // 画布宽度
+			boxHeight: 0, // 画布高度
+			boundary: 2, // 边界。说明：可以从边界开始拖动鼠标选择裁剪区域
+			fadeTime: 400, // 过渡效果时间
+			animationDelay: 20, // 动画延迟
+			swingSpeed: 3, // 过渡速度
+			minSelect: [0,0], // 选框最小选择尺寸。说明：若选框小于该尺寸，则自动取消选择
+			maxSize: [0,0],	// 选框最大尺寸
+			minSize: [0,0],	// 选框最小尺寸
+			// 改变选框事件
+			onChange: function(coords) {
+				showCoords(coords);
+				updatePreview(coords);
+			},
+			// 选中事件
+			onSelect: function(coords) {
+				showCoords(coords); 
+				updatePreview(coords);
+			},
+			// 释放选框事件
+			onRelease: function() {
+				clearCoords();
+				$("#preview-img").attr("src", "");
+				$("#preview-img").css({
+					width: '200px',
+					height: '200px',
+					marginLeft: '0px',
+					marginTop: '0px'
+				});
+			}
+		}, function() {
+			// jcrop初始化回调
+			jcrop = this;
+			// 获取边界数值
+			var bounds = this.getBounds();
+			boundx = bounds[0];
+			boundy = bounds[1];
+		});
+	}
+
+	// 显示坐标
+	function showCoords(coords) {
+		$('#x1').val(coords.x);
+	    $('#y1').val(coords.y);
+	    $('#x2').val(coords.x2);
+	    $('#y2').val(coords.y2);
+	    $('#w').val(coords.w);
+	    $('#h').val(coords.h);
+	}
+
+	// 清空坐标
+	function clearCoords() {
+		$(".input-coords").val("");
+	}
+
+	// 更新预览图层
+	function updatePreview(coords) {
+		if ($("#preview-img").attr("src") == "") {
+			$("#preview-img").attr("src", $(jcrop.ui.holder).find("img").attr("src"));
+		}
+		if (parseInt(coords.w) > 0) {
+			var rx = previewWidth / coords.w;
+			var ry = previewHeight / coords.h;
+			$("#preview-img").css({
+				width: Math.round(rx * boundx) + 'px',
+				height: Math.round(ry * boundy) + 'px',
+				marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+				marginTop: '-' + Math.round(ry * coords.y) + 'px'
+			});
+		}
+    };
+
+ 	// 更改样式按钮
+	$(".btn-style").on('click', function() {
+		var id = $(this).attr("name");
+		switch(id) {
+			case "1" : {
+				jcrop.setOptions({ bgColor: 'white', bgOpacity: 0.5 });
+				break;
+			}
+			case "2" : {
+				jcrop.setOptions({ bgColor: 'black', bgOpacity: 0.4 });
+				break;
+			}
+			case "3" : {
+				jcrop.setOptions({ bgColor: $.Jcrop.defaults.bgColor, bgOpacity: $.Jcrop.defaults.bgOpacity });
+				break;
+			}
+			default: break;
+		}
+	});
+
+	// 选中坐标
+	$('.input-coords').on('change', function(e) {
+		var x1 = $('#x1').val(),
+			x2 = $('#x2').val(),
+			y1 = $('#y1').val(),
+			y2 = $('#y2').val();
+		jcrop.setSelect([x1,y1,x2,y2]);
+    });
+
+	// 动画坐标
+	var ac = [
+      [217,122,382,284],
+      [20,20,580,380],
+      [24,24,176,376],
+      [347,165,550,355],
+      [136,55,472,183]
+    ];
+
+	// 动画按钮
+    $(".btn-animations").on('click', function() {
+		var id = $(this).attr("name");
+		var acId = parseInt(id)-1;
+		switch(id) {
+			case "1" : {
+				jcrop.animateTo(ac[acId]);
+				break;
+			}
+			case "2" : {
+				jcrop.animateTo(ac[acId]);
+				break;
+			}
+			case "3" : {
+				jcrop.animateTo(ac[acId]);
+				break;
+			}
+			case "4" : {
+				jcrop.animateTo(ac[acId]);
+				break;
+			}
+			case "5" : {
+				jcrop.animateTo(ac[acId]);
+				break;
+			}
+			case "bye" : {
+				jcrop.animateTo([300,200,300,200], function() {
+					this.release();
+				});
+				break;
+			}
+			default: break;
+		}
+	});
+
+    // 背景透明度
+	var bgo = {
+		Low: .2,
+		Mid: .5,
+		High: .8,
+		Full: 1
+    };
+
+    // 更改背景透明度按钮
+	$(".btn-opacity").on('click', function() {
+		var id = $(this).attr("name");
+		jcrop.setOptions({ bgOpacity: bgo[id]});
+	});
+
+	// 背景颜色
+	var bgc = {
+      Red: '#900',
+      Blue: '#4BB6F0',
+      Yellow: '#F0B207',
+      Green: '#46B81C',
+      White: 'white',
+      Black: 'black'
+    };
+
+    // 更改背景透明度按钮
+	$(".btn-bgColor").on('click', function() {
+		var id = $(this).attr("name");
+		jcrop.setOptions({ bgColor: bgc[id]});
+	});
+
+	// 配置开关选择
+	$(".input-option-toggle").on('click', function() {
+		var id = $(this).attr("name");
+		var opt = {};
+		switch(id) {
+			case "bgFading" : {
+				opt.bgFade = this.checked;
+				break;
+			}
+			case "resizable" : {
+				opt.allowResize = this.checked;
+				break;
+			}
+			case "movable" : {
+				opt.allowMove = this.checked;
+				break;
+			}
+			case "newSelect" : {
+				opt.allowSelect = this.checked;
+				break;
+			}
+			case "fixedAspectRatio" : {
+				opt.aspectRatio = this.checked ? 1/2 : 0;
+				break;
+			}
+			case "fixedMinMaxSize" : {
+				opt.minSize = this.checked ? [100, 100] : [0, 0];
+				opt.maxSize = this.checked ? [200, 200] : [0, 0];
+				break;
+			}
+			default: break;
+		};
+		jcrop.setOptions(opt);
+		jcrop.focus();
+	});
+
+	// 固定长宽比选择
+	$(".checkbox-fixed-aspect-ratio").on("click", function() {
+		$(".input-fixed-aspect-ratio").attr("readonly", !this.checked);
+		var enable = this.checked;
+		var width = $(this).parent().find("input[name='width']").val();
+		var height = $(this).parent().find("input[name='height']").val();
+		setFixedAspectRatio(enable, width, height);
+	});
+
+	// 固定长宽比输入框
+	$(".input-fixed-aspect-ratio").on("change", function() {
+		var enable = true;
+		var width = $(this).parent().find("input[name='width']").val();
+		var height = $(this).parent().find("input[name='height']").val();
+		setFixedAspectRatio(enable, width, height);
+	});
+
+	// 设置固定长宽比
+	function setFixedAspectRatio(enable, width, height) {
+		var ratio = (height == 0) ? 0 : width/height;
+		jcrop.setOptions({
+			aspectRatio: (enable ? ratio : 0)
+		});
+		jcrop.focus();
+	}
+
+	// 固定大小选择
+	$(".checkbox-fixed-minmax-size").on("click", function() {
+		$(".input-fixed-minmax-size").attr("readonly", !this.checked);
+		var enable = this.checked;
+		var minWidth = $(this).parent().find("input[name='minWidth']").val();
+		var minHeight = $(this).parent().find("input[name='minHeight']").val();
+		var maxWidth = $(this).parent().find("input[name='maxWidth']").val();
+		var maxHeight = $(this).parent().find("input[name='maxHeight']").val();
+		setFixedMinMaxSize(enable, minWidth, minHeight, maxWidth, maxHeight);
+	});
+
+	// 固定大小输入框
+	$(".input-fixed-minmax-size").on("change", function() {
+		var enable = true;
+		var minWidth = $(this).parent().find("input[name='minWidth']").val();
+		var minHeight = $(this).parent().find("input[name='minHeight']").val();
+		var maxWidth = $(this).parent().find("input[name='maxWidth']").val();
+		var maxHeight = $(this).parent().find("input[name='maxHeight']").val();
+		setFixedMinMaxSize(enable, minWidth, minHeight, maxWidth, maxHeight);
+	});
+
+	// 设置最大最小宽高
+	function setFixedMinMaxSize(enable, minWidth, minHeight, maxWidth, maxHeight) {
+		jcrop.setOptions({
+			minSize: (enable ? [Number(minWidth), Number(minHeight)] : [0, 0]),
+			maxSize: (enable ? [Number(maxWidth), Number(maxHeight)] : [0, 0])
+		});
+		jcrop.focus();
+	}
+
+	// 更改图片按钮
+	$(".btn-changeImage").on("click", function() {
+		var id = $(this).attr("name");
+		jcrop.setImage(id+'.jpg', function() {// 获取边界值
+			var bounds = jcrop.getBounds();
+			boundx = bounds[0];
+			boundy = bounds[1];
+			$("#preview-img").attr("src", id+'.jpg');
+		});
+	});
+
+	// 操作按钮
+	$(".btn-action").on('click', function() {
+		var id = $(this).attr("name");
+		switch(id) {
+			case "setSelection" : {
+				var bounds = jcrop.getBounds();
+			    var random = [
+			        Math.round(Math.random() * bounds[0]),
+			        Math.round(Math.random() * bounds[1]),
+			        Math.round(Math.random() * bounds[0]),
+			        Math.round(Math.random() * bounds[1])
+			    ];
+			    jcrop.setSelect(random);
+				break;
+			}
+			case "release" : {
+				jcrop.release();
+				break;
+			}
+			case "disable" : {
+				jcrop.disable();
+				break;
+			}
+			case "enable" : {
+				jcrop.enable();
+				break;
+			}
+			case "destroy" : {
+				jcrop.destroy();
+				break;
+			}
+			case "init" : {
+				initJcrop();
+				break;
+			}
+			default: break;
+		};
+	});
+});
+
+</script>
